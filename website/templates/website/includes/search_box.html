@@ -1,0 +1,5 @@
+<form class="search-box" action="{% url 'wagtailsearch_search' %}" method="get">
+  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+  <input name="q"{% if query_string %} value="{{ query_string }}"{% endif %}
+         type="text" placeholder="Search website" />
+</form>

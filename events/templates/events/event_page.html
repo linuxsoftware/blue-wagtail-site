@@ -1,0 +1,40 @@
+{% extends "website/base.html" %}
+{% load events_tags wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+  <div class="body-content">
+    <div class="content-inner">
+        <p><strong>
+            {{ self.date_from|date:"j F Y" }}{% if self.date_to and self.date_to != self.date_from %} to {{ self.date_to|date:"j F Y" }}{% endif %}
+            {% if self.time_from %}{{ self.time_from|time_display }}{% endif %}{% if self.time_to %} to {{ self.time_to|time_display }}{% endif %}
+        </strong></p>
+        <p>{{ self.body|richtext }}</p>
+        {% if self.location %}<p>Location: {{ self.location }}</p>{% endif %}
+        {% if self.audience %}
+            <p>Audience:
+            {# From EVENT_AUDIENCE_CHOICES in models.py #}
+            {{ self.get_audience_display }}</p>
+        {% endif %}
+        {% if self.cost %}
+            <p>Cost: {{ self.cost|safe }}</p>
+        {% endif %}
+
+        {% if self.signup_link %}
+            <p>Sign up: <a href="{{ self.signup_link }}">{{ self.signup_link }}</a></p>
+        {% endif %}
+
+        <p>
+            <a class='calendar' href= "{{ self.url }}?format=ical">
+                Add to calendar
+            </a>
+        </p>
+        {% if self.image %}
+          <p>
+          {% image self.image width-180 %}
+          </p>
+        {% endif %}
+    </div>
+  </div>
+
+  {% include "website/includes/related_links.html" with related_links=self.related_links.all only %}
+{% endblock %}

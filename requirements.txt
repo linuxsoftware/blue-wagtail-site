@@ -1,0 +1,19 @@
+django-overextends
+django-treebeard
+libsass==0.5.1
+
+-e git://github.com/bgrace/wagtail-commons.git#egg=wagtail-commons
+
+# Minimal requirements
+Django>=1.7,<1.8
+wagtail==0.8.5
+#-e git+git://github.com/torchbox/wagtail.git@stable/0.8.x#egg=wagtail
+
+# Recommended components (require additional setup):
+#psycopg2==2.5.2
+psycopg2
+# elasticsearch==1.1.1
+
+# Recommended components to improve performance in production:
+# django-redis-cache==0.13.0
+# django-celery==3.1.10

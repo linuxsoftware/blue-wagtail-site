@@ -1,0 +1,21 @@
+{% extends "website/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+  <div class="body-content">
+    <div class="content-inner">
+      {{ self.intro|richtext }}
+      {# Uses method defined in models.py to retrieve all upcoming events #}
+      {# See also standard index for creating a listing with a tag #}
+      {% with self.events.all as events %}
+        {% if events %}  
+          <div class="list-group">
+            {% for event in events %}
+              {% include "events/includes/event_list_item.html" %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+    </div>
+  </div>
+{% endblock %}

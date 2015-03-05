@@ -1,0 +1,36 @@
+{% extends "website/base.html" %}
+{% load website_tags wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+  <div class="body-content">
+    <div class="content-inner">
+      {{ intro|richtext }}
+      <div class="list-group">
+        {% for webimage in self.webimages %}
+          {% if webimage.author and webimage.license %}
+            <div class="list-group-item webimage"> 
+              {% image webimage original as rendition %}
+              <a target="_blank" class="title"
+                href="{{rendition.url}}">{% image webimage fill-35x35-c100 %}</a>
+              <a target="_blank" class="title"
+                 href="{{rendition.url}}">{{webimage.title}}</a>, by
+              {% if webimage.source %}
+                <a target="_blank" class="author"
+                   href="{{webimage.source}}">{{webimage.author}}</a>,
+              {% else %}
+                <span class="author">{{webimage.author}}</span>,
+              {% endif %}
+              {% if webimage.license == 'Consent' %}
+                 Proprietary: Consent granted ({{website.notes}})
+              {% elif webimage.license == 'Other' %}
+                 {{website.notes}}
+              {% else %}
+                 {% license_link webimage.license %}
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

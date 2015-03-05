@@ -1,0 +1,17 @@
+{% extends "website/base.html" %}
+
+{% load static website_tags wagtailcore_tags %}
+
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+
+
+{% block content %}
+  <div class="body-content">
+    <div class="content-inner">
+      {{ self.body|richtext }}
+    </div>
+  </div>
+
+    {% include "website/includes/related_links.html" with related_links=self.related_links.all only %}
+{% endblock %}

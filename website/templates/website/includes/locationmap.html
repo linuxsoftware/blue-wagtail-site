@@ -1,0 +1,46 @@
+{% load website_tags %}
+
+<div id="map-focusinfo-src">
+  <div id="map-focusinfo">
+    <h2 class="dancing-script">Blue-Wagtail</h2>
+    <div class="details">
+      <img class="thumb" src="/static/website/img/blue-headed-wagtail.png" />
+      <p>
+        <span class="street">50 Mayoral Drive</span>,
+        <span class="city">Auckland</span>.
+      </p>
+      <div class="phone">ph. 309 2677.</div>
+      <div class="email"><a href="mailto:blue@example.com"
+             >blue@example.com</a></div>
+      <p></p>
+    </div>
+  </div>
+</div>
+<div id="location-map">
+</div>
+<div id="map-directions">
+  <a class="close" href="javascript:void(0)"><img src="/static/website/img/closex.png" /></a>
+  <h4>Directions</h4>
+  <div class="field">
+    <label>By:</label>
+    <div class="travel-mode selected-travel-mode travel-by-car" title="Car"></div>
+    <div class="travel-mode travel-by-transit" title="Bus/Train"></div>
+    <div class="travel-mode travel-by-bicycle" title="Bicycle"></div>
+    <div class="travel-mode travel-by-foot" title="Walking"></div>
+  </div>
+  <div class="field transit-options">
+    <select id="transit-time-option">
+      <option value="departureTime">Leave After</option>
+      <option value="arrivalTime">Arrive Before</option>
+    </select>
+    <select id="transit-date">
+    </select>
+    <input id="transit-time" name="transit-time" type="text" />
+  </div>
+  <div class="field" id="travel-from">
+    <label for="map-directions-origin">From:</label>
+    <input id="map-directions-origin" type="text" name="origin" value=""/>
+  </div>
+  <div id="map-directions-steps">
+  </div>
+</div>

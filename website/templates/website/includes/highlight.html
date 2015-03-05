@@ -1,0 +1,9 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% image highlight.image fill-260x140 as rendition %}
+<img src="{{rendition.url}}" alt="" title="{{highlight.title}}"
+     width="{{rendition.width}}" height="{{rendition.height}}" />
+<div class="highlight-details">    
+  <h2>{{ highlight.title }}</h2>
+  {{ highlight.blurb|richtext }}
+</div>
+

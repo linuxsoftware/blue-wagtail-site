@@ -1,0 +1,31 @@
+<div class="events-this-week">
+  <h3>This Week</h3>
+  <div class="events">
+    {% for event_day, days_events, continuing_events in events %}
+    <div class="day {% if event_day < today %} in-past{% elif event_day == today %} today{% endif %}">
+        <div class="event-day" {% if event_day == today %}title="Today"{% endif %}>
+            <h4>{{event_day|date:"l"}}</h4>
+            {{event_day|date:"jS M"}}
+        </div>
+        <div class="days-events">
+          {% for event in days_events %}
+            <a href="{{event.url}}" class="event">
+              {% if event.time_from %}
+                {{event.time_from|time:"P"}}
+              {% endif %}
+              {{event.title}}
+            </a>
+          {% endfor %}
+          {% for event in continuing_events %}
+            <a href="{{event.url}}" class="event event-continues">
+              {{event.title}}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="links">
+    <a class="events" href="/events">Events</a>
+  </div>
+</div>

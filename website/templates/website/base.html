@@ -1,0 +1,134 @@
+{% load website_tags cache compress static wagtailuserbar %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/static/website/img/favicon.ico">
+
+    <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_postfix %}{% endblock %}</title>
+
+    <link href="/static/website/css/vendor/bootstrap.css" rel="stylesheet">
+    <link href="/static/website/css/locationmap.css" rel="stylesheet">
+    <link href="/static/website/css/blue.css" rel="stylesheet">
+
+
+    {# Local static assets such as css, images and javascrpt should be stored at [yourapp]/static/[yourapp]/... #}
+    {% compress css %}
+    {# Vendor stylesheets stored locally #}
+
+    {# Custom stylesheets #}
+    {# SCSS compilation relies on django compressor #}
+    {% endcompress css %}
+
+    {% block extra_css %}{% endblock %} {# Override this block in individual templates in order to add stylesheets on a template by template basis #}
+
+    {# Javascript that needs to be called from head e.g. google analytics snippet and bootstrap shivs #}
+    <script type="text/javascript">
+    </script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  <body class="{% block body_class %}{% endblock %}"> {# Override this block to set custom body classes on a template by template basis #}
+
+    {% wagtailuserbar %}
+
+    <div id="wrapper">
+      <header class="clearfix">
+        <div class="title">
+          <a href="/" title="Home"><img class="logo" 
+             src="/static/website/img/blue-headed-wagtail.png" alt="" /></a>
+          <a href="/" title="Home"><h1 class="dancing-script"
+                  >Blue-Wagtail</h1></a>
+        </div>
+        <div class="top-right">
+          {% block search_box %}
+          {% include "website/includes/search_box.html" only %}
+          {% endblock %}
+          <span class="address">
+            <span class="street">50 Mayoral Drive</span>,
+            <span class="city">Auckland</span>.
+          </span>
+        </div>
+        <div class="clear-right-float"></div>
+        {% block menu %}
+        {% get_site_root as site_root %}
+        {% top_menu parent=site_root calling_page=self %}
+        {% endblock %}
+      </header>
+      <main>
+        {% block heading %}
+        <div class="page-heading">
+          <h1>{{ self.title }}</h1>
+        </div>
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
+      </main>
+      <footer>
+        {% site_map %}
+        <div class="bottom-left">
+        <div class="top clearfix">
+        <div class="title">
+          <a href="/" title="Home"><h2 class="dancing-script"
+                  >Blue-Wagtail</h2></a>
+        </div>
+
+        <div class="social-media">
+          <a href="https://www.facebook.com"
+             alt="Facebook" title="Facebook" class="imglink"
+             ><img src="/static/website/img/facebook.png" /></a>
+          <a href="https://twitter.com"
+             alt="Twitter" title="Twitter" class="imglink"
+             ><img src="/static/website/img/twitter.png" /></a>
+        </div>
+        </div>
+          <div class="login">
+            <a href="/admin/login">Login</a>
+          </div>
+          <div class="copyright">
+            Content is copyright and is licensed as Creative Commons
+            <a class="creative-commons"
+                href="http://creativecommons.org/licenses/by/4.0/"
+                rel="license">CC BY-SA</a>
+            (unless otherwise indicated).
+          </div>
+          <div id="site-by">
+            Site powered by: <a href="http://wagtail.io">Wagtail</a>.
+          </div>
+        </div>
+
+      </footer>
+    </div>
+
+
+    {# External javascript #}
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/static/website/js/vendor/bootstrap.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/static/website/js/vendor/ie10-viewport-bug-workaround.js"></script>
+    <script src="/static/website/js/vendor/moment.js"></script>
+    {% get_google_maps_key as google_maps_key %}
+    <script src="//maps.googleapis.com/maps/api/js?v=3{% if google_maps_key %}&key={{ google_maps_key }}{% endif %}&region=nz&libraries=places"></script>
+    <script src="/static/website/js/locationmap.js?v=2"></script>
+
+    {% compress js %}
+    {# Custom javascript #}
+    {# Local static assets such as css, images and javascrpt should be stored at [yourapp]/static/[yourapp]/... #}
+    {% endcompress js %}
+
+    {% block extra_js %}{% endblock %} {# Override this block in individual templates in order to add javascript on a template by template basis #}
+
+  </body>
+</html>

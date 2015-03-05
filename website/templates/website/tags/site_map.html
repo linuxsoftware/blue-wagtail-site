@@ -1,0 +1,10 @@
+<div class="site-map clearfix">
+  {% for column in columns %}
+    <div class="site-map-column">
+      {% for item in column %}
+        <a class="site-map-item level-{{item.level}}"
+           href="{{item.url}}">{{item.title }}</a>
+      {% endfor %}
+    </div>       
+  {% endfor %}
+</div>

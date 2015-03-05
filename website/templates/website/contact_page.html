@@ -1,0 +1,16 @@
+{% extends "website/base.html" %}
+{% load  wagtailcore_tags wagtailimages_tags %}
+
+
+
+{% block content %}
+  <div class="body-content">
+    <div class="content-inner">
+      {{ self.body|richtext }}
+    </div>
+  </div>
+  <section id="location">
+    {% include "website/includes/locationmap.html" only %}
+  </section>
+
+{% endblock %}
